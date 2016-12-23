@@ -1,0 +1,9 @@
+# defines several options for the app, 
+# and describes which handler scripts should be used for which URLs.
+runtime: python27
+api_version: 1
+threadsafe: true
+
+handlers:
+- url: /.*
+  script: main.app
