@@ -1,5 +1,4 @@
 import webapp2
-from string import letters
 from base_render import BaseHandler
 from signup import Signup
 from welcome import Welcome
