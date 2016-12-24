@@ -8,7 +8,7 @@ def check_valid_field(field, field_re):
     return field and field_re.match(field)
 class Signup(BaseHandler):
     def get(self):
-        self.render("signup-form.html")
+        self.render("signup.html")
     def post(self):
         error = False
         # Creat a list of parameters for to store if post is invalid
