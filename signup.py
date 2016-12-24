@@ -34,7 +34,7 @@ class Signup(BaseHandler):
         # password verification
         password_verify = self.request.get('verify')
         if password_verify != password:
-            params['error_password'] = "Password doesn't match verification."
+            params['error_verify'] = "Password doesn't match verification."
             error = True
         if error:
             self.render('signup-form.html', **params)
