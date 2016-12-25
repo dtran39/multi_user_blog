@@ -5,6 +5,7 @@ import webapp2
 import jinja2
 from user import User
 from base_render import BlogHandler
+from welcome import Welcome
 
 class MainPage(BlogHandler):
   def get(self):
@@ -56,7 +57,7 @@ class Signup(BlogHandler):
             have_error = True
 
         if have_error:
-            self.render('signup-form.html', **params)
+            self.render('signup.html', **params)
         else:
             self.done()
 
@@ -102,17 +103,10 @@ class Logout(BlogHandler):
         self.logout()
         self.redirect('/welcome')
 
-class Unit3Welcome(BlogHandler):
-    def get(self):
-        if self.user:
-            self.render('welcome.html', username = self.user.name)
-        else:
-            self.redirect('/signup')
-
 app = webapp2.WSGIApplication([('/', MainPage),
                                ('/signup', Register),
                                ('/login', Login),
                                ('/logout', Logout),
-                               ('/welcome', Unit3Welcome),
+                               ('/welcome', Welcome),
                                ],
                               debug=True)

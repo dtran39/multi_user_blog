@@ -1,5 +1,8 @@
-from base_render import BaseHandler
+from base_render import BlogHandler
 # Welcome after finish signing up
-class Welcome(BaseHandler):
+class Welcome(BlogHandler):
     def get(self):
-        self.render("welcome.html", username = self.request.get('username'))
+        if self.user:
+            self.render('welcome.html', username = self.user.name)
+        else:
+            self.redirect('/signup')
