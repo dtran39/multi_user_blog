@@ -4,7 +4,6 @@ import re
 import webapp2
 import jinja2
 import hmac
-from google.appengine.ext import db
 
 from user import User
 # Global variables:
