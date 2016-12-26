@@ -3,17 +3,7 @@ import re
 
 import webapp2
 import jinja2
-from all_models import User
-from base_render import BlogHandler
-from signup import Register
-from login import Login
-from logout import Logout
-from welcome import Welcome
-from blog import Post, BlogFront, PostPage, NewPost
-class MainPage(BlogHandler):
-  def get(self):
-      self.write('Hello, Udacity!')
-
+from all_pages import Register, Login, Logout, Welcome, Post, BlogFront, PostPage, NewPost, MainPage
 app = webapp2.WSGIApplication([('/', MainPage),
                                ('/signup', Register),
                                ('/login', Login),
