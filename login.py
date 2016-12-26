@@ -11,7 +11,7 @@ class Login(BlogHandler):
         u = User.login(username, password)
         if u:
             self.login(u)
-            self.redirect('/welcome')
+            self.redirect('/blog')
         else:
             msg = 'Invalid login'
             self.render('login.html', error = msg)
