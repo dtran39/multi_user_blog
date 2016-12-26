@@ -3,7 +3,7 @@ import re
 
 import webapp2
 import jinja2
-from user import User
+from all_models import User
 from base_render import BlogHandler
 from signup import Register
 from login import Login

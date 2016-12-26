@@ -1,6 +1,6 @@
 ##### user stuff
 import re
-from user import User
+from all_models import User
 from base_render import BlogHandler
 
 USER_RE = re.compile(r"^[a-zA-Z0-9_-]{3,20}$")

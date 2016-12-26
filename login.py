@@ -1,4 +1,4 @@
-from user import User
+from all_models import User
 from base_render import BlogHandler
 class Login(BlogHandler):
     def get(self):

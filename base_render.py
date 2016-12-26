@@ -5,7 +5,7 @@ import webapp2
 import jinja2
 import hmac
 
-from user import User
+from all_models import User
 # Global variables:
 # String full path of the template directory
 template_dir = os.path.join(os.path.dirname(__file__), 'templates')
