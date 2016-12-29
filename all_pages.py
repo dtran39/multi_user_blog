@@ -2,8 +2,6 @@ from pages.main_page import MainPage
 from pages.signup import Register
 from pages.login import Login
 from pages.logout import Logout
-from pages.welcome import Welcome
-from pages.blog import Post
 from pages.blogfront import BlogFront
-from pages.postpage import PostPage
+from pages.post import PostPage
 from pages.newpost import NewPost

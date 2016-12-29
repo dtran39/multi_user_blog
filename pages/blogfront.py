@@ -1,5 +1,6 @@
 from base_render import BlogHandler
-from blog import Post
+from post import Post
+
 class BlogFront(BlogHandler):
     def get(self):
         posts = greetings = Post.all().order('-created')

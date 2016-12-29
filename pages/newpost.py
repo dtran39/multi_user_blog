@@ -1,5 +1,6 @@
+from global_helpers import blog_key
 from base_render import BlogHandler
-from blog import Post, blog_key
+from post import Post
 class NewPost(BlogHandler):
     def get(self):
         if self.user:
