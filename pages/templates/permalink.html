@@ -18,6 +18,6 @@
       <button type="submit">Submit</button>
   </form>
   {% for c in comments %}
-    <p>{{ c.comment }} {{c.getUserName()}}</p>
+    <p>{{ c.comment }} {{c.getUserName()}} {{c.key().id()}}</p>
   {% endfor %}
 {% endblock %}
