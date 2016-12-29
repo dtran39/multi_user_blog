@@ -1,5 +1,23 @@
 {% extends "base.html" %}
 
 {% block content %}
+  {% if error %}
+    {{error}}
+  {% endif %}
+
+
+  <a id="post-delete"  href="/blog/deletepost/{{post.key().id()}}">Delete</a>
+  <a id="post-edit"  href="/blog/editpost/{{post.key().id()}}">Edit</a>
   {{post.render() | safe}}
+
+  <form method="post" role="form">
+      <div>
+          <label for="comment">Comment:</label>
+          <input type="text" id="comment" name="comment" value="">
+      </div>
+      <button type="submit">Submit</button>
+  </form>
+  {% for c in comments %}
+    <p>{{ c.comment }} {{c.getUserName()}}</p>
+  {% endfor %}
 {% endblock %}
