@@ -3,5 +3,6 @@ from pages.signup import Register
 from pages.login import Login
 from pages.logout import Logout
 from pages.blogfront import BlogFront
-from pages.post import PostPage
+from pages.post import Post, PostPage
 from pages.newpost import NewPost
+from pages.base_render import BlogHandler
