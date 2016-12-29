@@ -9,3 +9,4 @@ from pages.newpost import NewPost
 from pages.deletepost import DeletePost
 from pages.editpost import EditPost
 from pages.deletecomment import DeleteComment
+from pages.editcomment import EditComment
