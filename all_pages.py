@@ -6,4 +6,5 @@ from pages.blogfront import BlogFront
 from pages.post import Post, PostPage
 from pages.newpost import NewPost
 from pages.deletepost import DeletePost
+from pages.editpost import EditPost
 from pages.base_render import BlogHandler
