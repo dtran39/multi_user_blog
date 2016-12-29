@@ -1,9 +1,8 @@
 import webapp2, hmac
 from global_helpers import jinja_render_str
-
 from all_models import User
 
-secret = 'fart'
+secret = 'duc_tran'
 
 def make_secure_val(val):
     return '%s|%s' % (val, hmac.new(secret, val).hexdigest())

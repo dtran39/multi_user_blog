@@ -1,8 +1,9 @@
 from all_models import User
 from base_render import BlogHandler
+
 class Login(BlogHandler):
     def get(self):
-        self.render('login.html')
+        self.render('login.html', error=self.request.get('error'))
 
     def post(self):
         username = self.request.get('username')
