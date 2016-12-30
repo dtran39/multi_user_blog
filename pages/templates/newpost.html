@@ -1,21 +1,34 @@
 {% extends "base.html" %}
 
 {% block content %}
-  <h2>new post</h2>
+<div class="row">
+    <div class="row">
+    <div class="col-md-8 col-md-offset-2 col-sm-8 col-sm-offset-2 col-xs-10 col-xs-offset-1">
+        <h2>New post</h2>
+    </div></div>
+    <div class="row">
+    <div class="col-md-8 col-md-offset-2 col-sm-8 col-sm-offset-2 col-xs-10 col-xs-offset-1">
+        <form method="post" role="form">
+            <div class="form-group">
+                <label for="subject">Subject:</label>
+                <input type="text" class="form-control" name="subject" value="{{subject}}">
+            </div>
 
-    <form method="post">
-      <label>
-        <div>subject</div>
-        <input type="text" name="subject" value="{{subject}}">
-      </label>
+            <div class="form-group">
+                <label for="content">Post Content:</label>
+                <textarea class="form-control" name="content" value="{{content}}" rows="10">{{content}}</textarea>
+            </div>
 
-      <label>
-        <div>blog</div>
-        <textarea name="content">{{content}}</textarea>
-      </label>
+            {% if error %}
+            <div class="alert alert-danger" role="alert">
+                <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+                {{error}}
+            </div>
+            {% endif %}
 
-      <div class="error">{{error}}</div>
-
-      <input type="submit">
-    </form>
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+    </div>
+  </div>
+</div>
 {% endblock %}

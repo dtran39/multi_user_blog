@@ -14,10 +14,10 @@ app = webapp2.WSGIApplication([
                                ('/logout', Logout),
                                ('/?', BlogFront),
                                ('/blog/([0-9]+)', PostPage),
-                               ('/blog/newpost', NewPost),
-                               ('/blog/editpost/([0-9]+)', EditPost),
-                               ('/blog/deletepost/([0-9]+)', DeletePost),
-                               ('/blog/deletecomment/([0-9]+)/([0-9]+)', DeleteComment),
-                               ('/blog/editcomment/([0-9]+)/([0-9]+)', EditComment)
+                               ('/new', NewPost),
+                               ('/edit/([0-9]+)', EditPost),
+                               ('/delete/([0-9]+)', DeletePost),
+                               ('/deletecomment/([0-9]+)/([0-9]+)', DeleteComment),
+                               ('/editcomment/([0-9]+)/([0-9]+)', EditComment)
                                ],
                               debug=True)
