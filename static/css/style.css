@@ -1,0 +1,18 @@
+body {
+	font-family: 'Source Sans Pro', sans-serif;
+	color: #676858;
+}
+
+hr {
+    border: none;
+    height: 0.2085vw;
+    background-color: #999999;
+}
+
+h1, h2, h3, h4, p {
+	font-weight: 500;
+}
+
+li {
+	list-style-type: none;
+}

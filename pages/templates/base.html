@@ -1,12 +1,31 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <link type="text/css" rel="stylesheet"/>
-
-  <title>CS 253 Blog</title>
+  <!-- meta tags -->
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- link tags for style files -->
+    <!-- Font  -->
+	<link href="static/css/font.css" rel="stylesheet">
+    <!-- Boot strap -->
+  <link rel="stylesheet" href="static/css/bootstrap.min.css">
+    <!--  user-custom style-->
+  <link rel="stylesheet" href="static/css/style.css">
+    <!--  Font awesome-->
+	<link rel="stylesheet" href="static/css/font-awesome/css/font-awesome.min.css">
+  <!--  script tags js files-->
+    <!--  Jquery-->
+  <script src="static/js/jquery.min.js"></script>
+    <!--  Bootstrap-->
+  <script src="static/js/bootstrap.min.js"></script>
+    <!-- Custom script -->
+  <script src="static/js/script.js"></script>
+  <title>Welcome to Duc Tran's Blog</title>
 </head>
 
 <body>
+<div class="container">
   <a href="/blog" class="main-title">
     CS 253 Blog
   </a>
@@ -16,7 +35,6 @@
       {{user.name}} (<a class="login-link" href="/logout">logout</a>)
     {% else %}
       <a class="login-link" href="/login">login</a>
-      |
       <a class="login-link" href="/signup">signup</a>
     {% endif %}
   </div>
@@ -25,6 +43,7 @@
   {% block content %}
   {% endblock %}
   </div>
+</div>
 </body>
 
 </html>
