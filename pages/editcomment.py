@@ -20,7 +20,7 @@ class EditComment(BlogHandler):
 
     def post(self, post_id, comment_id):
         if not self.user:
-            self.redirect('/blog')
+            self.redirect('/')
 
         comment = self.request.get('comment')
 

@@ -1,4 +1,3 @@
-from pages.main_page import MainPage
 from pages.base_render import BlogHandler
 from pages.signup import Register
 from pages.login import Login

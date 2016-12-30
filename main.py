@@ -3,16 +3,16 @@ import re
 
 import webapp2
 import jinja2
-from all_pages import   (MainPage, Register, Login, Logout, Post,
+from all_pages import   (Register, Login, Logout, Post,
                         BlogHandler, BlogFront,
                         PostPage, NewPost, DeletePost, EditPost,
                         DeleteComment, EditComment)
 
-app = webapp2.WSGIApplication([('/', MainPage),
+app = webapp2.WSGIApplication([
                                ('/signup', Register),
                                ('/login', Login),
                                ('/logout', Logout),
-                               ('/blog/?', BlogFront),
+                               ('/?', BlogFront),
                                ('/blog/([0-9]+)', PostPage),
                                ('/blog/newpost', NewPost),
                                ('/blog/editpost/([0-9]+)', EditPost),

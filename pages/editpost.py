@@ -19,7 +19,7 @@ class EditPost(BlogHandler):
 
     def post(self, post_id):
         if not self.user:
-            self.redirect('/blog')
+            self.redirect('/')
         subject = self.request.get('subject')
         content = self.request.get('content')
         if subject and content:
