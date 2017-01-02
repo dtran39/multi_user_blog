@@ -4,6 +4,7 @@ from google.appengine.ext import db
 
 
 class DeleteComment(BlogHandler):
+
     def get(self, post_id, comment_id):
         if self.user:
             key = db.Key.from_path('Comment', int(comment_id),
@@ -11,7 +12,8 @@ class DeleteComment(BlogHandler):
             c = db.get(key)
             if c.user_id == self.user.key().id():
                 c.delete()
-                self.redirect("/blog/"+post_id)
+                self.redirect("/blog/"+post_id+"?deleted_comment_id=" +
+                              comment_id)
             else:
                 self.redirect("/blog/" + post_id + "?error=You don't have " +
                               "access to delete this comment.")
