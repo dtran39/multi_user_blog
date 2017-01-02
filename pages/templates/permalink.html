@@ -1,23 +1,45 @@
 {% extends "base.html" %}
 
 {% block content %}
-  {% if error %}
-    {{error}}
-  {% endif %}
-
-
-  <a id="post-delete"  href="/blog/deletepost/{{post.key().id()}}">Delete</a>
-  <a id="post-edit"  href="/blog/editpost/{{post.key().id()}}">Edit</a>
-  {{post.render() | safe}}
-
+<div class="row">
+  <div class="col-md-8">
+  <!-- Error -->
+    {% if error %}
+    <div class="alert alert-danger" role="alert">
+      {{error}}
+    </div>
+    {% endif %}
+  </div>
+  <div class="col-md-4">
+  <!-- Edit, delete -->
+    <a id="post-delete"  href="/blog/delete/{{post.key().id()}}">Delete</a>
+    <a id="post-edit"  href="/blog/edit/{{post.key().id()}}">Edit</a>
+  <!-- Render post -->
+  </div>
+</div>
+<div class="row">    {{post.render() | safe}}</div>
+  <!-- Comment -->
+<div class="row">
+  <!-- Like -->
+  <div class="sub-work col-md-12">
+      <form method="post" role="form">
+          <input type="hidden" class="form-control" id="like" name="like" value="update">
+          <button type="submit" class="btn btn-primary">Like {{numOfLikes}}</button>
+      </form>
+  </div>
+  <!-- Adding comments -->
   <form method="post" role="form">
       <div>
           <label for="comment">Comment:</label>
           <input type="text" id="comment" name="comment" value="">
       </div>
-      <button type="submit">Submit</button>
+      <button type="submit" class="btn btn-primary">Submit</button>
   </form>
+  <!-- Showing comments -->
   {% for c in comments %}
-    <p>{{ c.comment }} {{c.getUserName()}} {{c.key().id()}}</p>
+    <p>{{ c.getUserName() }}  {{ c.comment }}</p>
+    <a class="btn btn-danger" href="/blog/deletecomment/{{post.key().id()}}/{{c.key().id()}}">Delete</a>
+    <a class="btn btn-primary" href="/blog/editcomment/{{post.key().id()}}/{{c.key().id()}}">Edit</a>
   {% endfor %}
+</div>
 {% endblock %}
