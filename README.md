@@ -5,4 +5,4 @@
 2. Download google cloud sdk, extract to a folder
 3. Download/clone this project
 4. Go to /[path-to-google-cloud-sdk]/platform/google_appengine
-5. run: dev_appserver.py /path-to-project/clone
+5. run: dev_appserver.py /path-to-project/
