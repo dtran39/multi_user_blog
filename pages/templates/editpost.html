@@ -1,27 +1,33 @@
 {% extends "base.html" %}
 
 {% block content %}
-<div>
-    <div><h2>Edit post</h2></div>
-    <div>
+<div class="row">
+  <div class="row">
+    <div class="col-md-8 col-md-offset-2 col-sm-8 col-sm-offset-2 col-xs-10 col-xs-offset-1">
+      <h2>Edit post</h2>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-8 col-md-offset-2 col-sm-8 col-sm-offset-2 col-xs-10 col-xs-offset-1">
         <form method="post" role="form">
             <input type="hidden" id="post_id" name="post_id" value="{{post_id}}">
-            <div>
+            <div class="form-group">
                 <label for="subject">Subject:</label>
-                <input type="text" id="subject" name="subject" value="{{subject}}">
+                <input type="text" id="subject" class="form-control" name="subject" value="{{subject}}">
             </div>
-            <div>
+            <div class="form-group">
                 <label for="content">Post Content:</label>
-                <textarea id="content" name="content" value="{{content}}" rows="10">{{content}}</textarea>
+                <textarea id="content" name="content" class="form-control" value="{{content}}" rows="10">{{content}}</textarea>
             </div>
             {% if error %}
-            <div role="alert">
+            <div class="alert alert-danger" role="alert">
                 <span aria-hidden="true"></span>
                 {{error}}
             </div>
             {% endif %}
-            <button type="submit" >Submit</button>
+            <button type="submit" class="btn btn-primary">Submit</button>
         </form>
     </div>
+  </div>
 </div>
 {% endblock %}
