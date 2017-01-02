@@ -1,15 +1,18 @@
-from base_render import BlogHandler
-from global_helpers import blog_key
+"""This module has EditComment class"""
+from pages.base_render import BlogHandler
+from pages.global_helpers import blog_key
 from google.appengine.ext import db
 
 class EditComment(BlogHandler):
+    """This class implement editing a comment"""
     def get(self, post_id, comment_id):
+        """This method render the comment edition page"""
         if self.user:
             key = db.Key.from_path('Comment', int(comment_id),
                                    parent=blog_key())
-            c = db.get(key)
-            if c.user_id == self.user.key().id():
-                self.render("editcomment.html", comment=c.comment)
+            edited_comment = db.get(key)
+            if edited_comment.user_id == self.user.key().id():
+                self.render("editcomment.html", comment=edited_comment.comment)
             else:
                 self.redirect("/blog/" + post_id +
                               "?error=You don't have access to edit this " +
@@ -19,6 +22,7 @@ class EditComment(BlogHandler):
                           " edit your post!!")
 
     def post(self, post_id, comment_id):
+        """This method process comment edition information"""
         if not self.user:
             self.redirect('/')
 
@@ -27,11 +31,10 @@ class EditComment(BlogHandler):
         if comment:
             key = db.Key.from_path('Comment',
                                    int(comment_id), parent=blog_key())
-            c = db.get(key)
-            c.comment = comment
-            c.put()
+            edited_comment = db.get(key)
+            edited_comment.comment = comment
+            edited_comment.put()
             self.redirect('/blog/%s' % post_id)
         else:
-            error = "subject and content, please!"
-            self.render("editpost.html", subject=subject,
-                        content=content, error=error)
+            error = "comment needed"
+            self.render("editcomment.html", comment=comment, error=error)

@@ -21,7 +21,7 @@ class EditPost(BlogHandler):
                           "in order to edit your post!!")
 
     def post(self, post_id):
-        """This method process editing information""""
+        """This method process editing information"""
         if not self.user:
             self.redirect('/')
         subject = self.request.get('subject')
