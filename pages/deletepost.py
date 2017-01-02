@@ -1,8 +1,11 @@
+"""This method has DeletePost class"""
 from google.appengine.ext import db
-from global_helpers import blog_key
-from base_render import BlogHandler
+from pages.global_helpers import blog_key
+from pages.base_render import BlogHandler
 class DeletePost(BlogHandler):
+    """This class implemetn deleting a blogpost"""
     def get(self, post_id):
+        """This method implement deleting a blogpost"""
         if self.user:
             key = db.Key.from_path('Post', int(post_id), parent=blog_key())
             post = db.get(key)

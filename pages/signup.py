@@ -20,11 +20,6 @@ def valid_email(email):
 
 class Signup(BlogHandler):
     """This class implements signup functionality of the web app"""
-    def __init__(self):
-        self.username = ""
-        self.password = ""
-        self.verify = ""
-        self.email = ""
     def get(self):
         """Render sign up page"""
         self.render("signup.html")

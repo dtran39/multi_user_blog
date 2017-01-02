@@ -1,9 +1,12 @@
+"""This module has EditPost class"""
 from google.appengine.ext import db
-from base_render import BlogHandler
-from global_helpers import blog_key
+from pages.base_render import BlogHandler
+from pages.global_helpers import blog_key
 
 class EditPost(BlogHandler):
+    """This class implements editing a blogpost"""
     def get(self, post_id):
+        """This method implements editing a blogpost page"""
         if self.user:
             key = db.Key.from_path('Post', int(post_id), parent=blog_key())
             post = db.get(key)
@@ -18,6 +21,7 @@ class EditPost(BlogHandler):
                           "in order to edit your post!!")
 
     def post(self, post_id):
+        """This method process editing information""""
         if not self.user:
             self.redirect('/')
         subject = self.request.get('subject')
