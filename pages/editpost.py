@@ -9,7 +9,7 @@ class EditPost(BlogHandler):
             post = db.get(key)
             if post.user_id == self.user.key().id():
                 self.render("editpost.html", subject=post.subject,
-                            content=post.content)
+                            content=post.content, post_id=post_id)
             else:
                 self.redirect("/blog/" + post_id + "?error=You don't have " +
                               "access to edit this record.")

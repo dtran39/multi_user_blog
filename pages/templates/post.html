@@ -3,10 +3,7 @@
       <a href="/blog/{{p.key().id()}}#">
         {{p.subject}}</a>
     <!-- Post Info-->
-      <div>
-      {{p.created.strftime("%b %d, %Y")}}
-      {{p.key().id()}}
-      {{p.getUserName()}}
+      <div>Created by {{p.getUserName()}} on {{p.created.strftime("%b %d, %Y")}}
     </div>
   </div>
   <!-- Post content -->

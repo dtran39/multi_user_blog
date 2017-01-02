@@ -14,6 +14,7 @@ class PostPage(BlogHandler):
         post = db.get(key)
 
         likes = db.GqlQuery("select * from Like where post_id="+post_id)
+        # comments = db.GqlQuery("select * from Comment order by created desc")
         comments = db.GqlQuery("select * from Comment where post_id = " +
                                post_id + " order by created desc")
         if not post:
