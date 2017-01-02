@@ -37,9 +37,15 @@
   </form>
   <!-- Showing comments -->
   {% for c in comments %}
-    <p>{{ c.getUserName() }}  {{ c.comment }}</p>
-    <a class="btn btn-danger" href="/blog/deletecomment/{{post.key().id()}}/{{c.key().id()}}">Delete</a>
-    <a class="btn btn-primary" href="/blog/editcomment/{{post.key().id()}}/{{c.key().id()}}">Edit</a>
+    <div class="row">
+    <div class="col-md-8">
+      <p>{{ c.getUserName() }}  {{ c.comment }}</p>
+    </div>
+    <div class="col-md-4">
+      <a class="" href="/blog/deletecomment/{{post.key().id()}}/{{c.key().id()}}">Delete</a>
+      <a class="x" href="/blog/editcomment/{{post.key().id()}}/{{c.key().id()}}">Edit</a>
+    </div>
+  </div>
   {% endfor %}
 </div>
 {% endblock %}
