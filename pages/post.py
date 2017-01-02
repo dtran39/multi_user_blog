@@ -32,7 +32,6 @@ class PostPage(BlogHandler):
             return
         c = ""
         if(self.user):
-            # On clicking like, post-like value increases.
             if(self.request.get('like') and
                self.request.get('like') == "update"):
                 likes = db.GqlQuery("select * from Like where post_id = " +
@@ -48,7 +47,6 @@ class PostPage(BlogHandler):
                     l = Like(parent=blog_key(), user_id=self.user.key().id(),
                              post_id=int(post_id))
                     l.put()
-            # On commenting, it creates new comment tuple
             if(self.request.get('comment')):
                 c = Comment(parent=blog_key(), user_id=self.user.key().id(),
                             post_id=int(post_id),

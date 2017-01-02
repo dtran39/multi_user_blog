@@ -37,6 +37,17 @@
       <button type="submit" class="btn btn-primary">Submit</button>
   </form>
   <!-- Showing comments -->
+  {% if new %}
+  <div class="row">
+    <div class="col-md-8">
+      <p>{{ new.getUserName() }}  {{ new.comment }}</p>
+    </div>
+    <div class="col-md-4">
+      <a class="" href="/blog/deletecomment/{{post.key().id()}}/{{new.key().id()}}">Delete</a>
+      <a class="" href="/blog/editcomment/{{post.key().id()}}/{{new.key().id()}}">Edit</a>
+    </div>
+  </div>
+  {% endif%}
   {% for c in comments %}
     <div class="row">
     <div class="col-md-8">

@@ -1,20 +1,7 @@
-import webapp2, hmac
-from global_helpers import jinja_render_str
+import webapp2
+from global_helpers import jinja_render_str, make_secure_val, check_secure_val
 from all_models import User
-
-secret = 'duc_tran'
-
-def make_secure_val(val):
-    return '%s|%s' % (val, hmac.new(secret, val).hexdigest())
-
-def check_secure_val(secure_val):
-    val = secure_val.split('|')[0]
-    if secure_val == make_secure_val(val):
-        return val
-
-
-
-# Base Handler
+# Base blog handler
 class BlogHandler(webapp2.RequestHandler):
     def write(self, *a, **kw):
         self.response.out.write(*a, **kw)

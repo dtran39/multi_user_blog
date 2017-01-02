@@ -1,6 +1,4 @@
-import os
-import re
-
+# Entry point of the the app
 import webapp2
 import jinja2
 from all_pages import   (Register, Login, Logout, Post,

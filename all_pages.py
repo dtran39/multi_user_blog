@@ -1,3 +1,4 @@
+# Loading all pages rendering modules
 from pages.base_render import BlogHandler
 from pages.signup import Register
 from pages.login import Login
