@@ -1,9 +1,16 @@
 {% extends "base.html" %}
 
 {% block content %}
+  {% if deleted_post_id %}
+    <div class="alert alert-success" role="alert">
+      Post deleted
+    </div>
+  {% endif %}
   <div class="row">
   {% for p in posts %}
-    {{ p.render() | safe }}
+    {% if p.key().id()|string != deleted_post_id|string %}
+      {{ p.render() | safe }}
+    {% endif %}
   {% endfor %}
   </div>
 {% endblock %}
