@@ -17,49 +17,50 @@ class PostPage(BlogHandler):
         """This method render the a post, its like and comments"""
         key = db.Key.from_path('Post', int(post_id), parent=blog_key())
         post = db.get(key)
-
-        likes = db.GqlQuery("select * from Like where post_id="+post_id)
-        comments = db.GqlQuery("select * from Comment where post_id = " +
-                               post_id + " order by created desc")
         if not post:
             self.error(404)
             return
-        error = self.request.get('error')
+        likes = db.GqlQuery("select * from Like where post_id="+post_id)
+        comments = db.GqlQuery("select * from Comment where post_id = " +
+                               post_id + " order by created desc")
         self.render("permalink.html", post=post, numOfLikes=likes.count(),
-                    comments=comments, error=error)
+                    comments=comments, error=self.request.get('error'))
     def post(self, post_id):
         """This method process adding/editing comments and adding like"""
         key = db.Key.from_path('Post', int(post_id), parent=blog_key())
         post = db.get(key)
-
         if not post:
             self.error(404)
             return
         new_comment = ""
         if self.user:
-            if(self.request.get('like') and
-               self.request.get('like') == "update"):
+            # If user comment on the post, update db
+            if self.request.get('comment'):
+                new_comment = Comment(parent=blog_key(), user_id=self.user.key().id(),
+                                      username=self.user.name, post_id=int(post_id),
+                                      comment=self.request.get('comment'))
+                new_comment.put()
+            # If user like the post, check and update db if needed
+            if(self.request.get('like') and self.request.get('like') == "update"):
+                # Prevent liking your own post
+                if self.user.key().id() == post.user_id:
+                    self.redirect("/blog/" + post_id +
+                                  "?error=Liking your own post is prohibited")
+                    return
                 likes = db.GqlQuery("select * from Like where post_id = " +
                                     post_id + " and user_id = " +
                                     str(self.user.key().id()))
-
-                if self.user.key().id() == post.user_id:
-                    self.redirect("/blog/" + post_id +
-                                  "?error=You cannot like your " +
-                                  "post.!!")
-                    return
-                elif likes.count() == 0:
+                # If haven't like yet, like
+                if likes.count() == 0:
                     new_like = Like(parent=blog_key(), user_id=self.user.key().id(),
                                     post_id=int(post_id))
                     new_like.put()
-            if self.request.get('comment'):
-                new_comment = Comment(parent=blog_key(), user_id=self.user.key().id(),
-                                      post_id=int(post_id),
-                                      comment=self.request.get('comment'))
-                new_comment.put()
+                # If already like, unlike
+                elif likes.count() == 1:
+                    for a_like in likes:
+                        a_like.delete()
         else:
-            self.redirect("/login?error=You need to login before " +
-                          "performing edit, like or commenting.!!")
+            self.redirect("/login?error=Login required to like or comment")
             return
         likes = db.GqlQuery("select * from Like where post_id="+post_id)
         comments = db.GqlQuery("select * from Comment where post_id = " +

@@ -3,14 +3,14 @@ import webapp2
 from all_pages import (Register, Login, Logout, BlogFront, PostPage,
                        NewPost, DeletePost, EditPost, DeleteComment, EditComment)
 app = webapp2.WSGIApplication([
-    ('/?', BlogFront),
-    ('/blog/([0-9]+)', PostPage),
-    ('/blog/new', NewPost),
-    ('/blog/edit/([0-9]+)', EditPost),
-    ('/blog/delete/([0-9]+)', DeletePost),
-    ('/blog/deletecomment/([0-9]+)/([0-9]+)', DeleteComment),
-    ('/blog/editcomment/([0-9]+)/([0-9]+)', EditComment),
     ('/signup', Register),
     ('/login', Login),
-    ('/logout', Logout)
+    ('/logout', Logout),
+    ('/?', BlogFront),
+    ('/blog/new', NewPost),
+    ('/blog/([0-9]+)', PostPage),
+    ('/blog/([0-9]+)/edit', EditPost),
+    ('/blog/([0-9]+)/delete', DeletePost),
+    ('/blog/([0-9]+)/([0-9]+)/delete', DeleteComment),
+    ('/blog/([0-9]+)/([0-9]+)/edit', EditComment)
     ], debug=True)

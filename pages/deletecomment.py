@@ -15,8 +15,6 @@ class DeleteComment(BlogHandler):
                 self.redirect("/blog/"+post_id+"?deleted_comment_id=" +
                               comment_id)
             else:
-                self.redirect("/blog/" + post_id + "?error=You don't have " +
-                              "access to delete this comment.")
+                self.redirect("/blog/" + post_id + "?error=Deleting other's comment is prohibited.")
         else:
-            self.redirect("/login?error=You need to be logged, in order to " +
-                          "delete your comment!!")
+            self.redirect("/login?error=Login is required.")

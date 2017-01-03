@@ -14,11 +14,9 @@ class EditPost(BlogHandler):
                 self.render("editpost.html", subject=post.subject,
                             content=post.content, post_id=post_id)
             else:
-                self.redirect("/blog/" + post_id + "?error=You don't have " +
-                              "access to edit this record.")
+                self.redirect("/blog/" + post_id + "?error=Editing other's post is prohibited.")
         else:
-            self.redirect("/login?error=You need to be logged, " +
-                          "in order to edit your post!!")
+            self.redirect("/login?error=Login is required.")
 
     def post(self, post_id):
         """This method process editing information"""

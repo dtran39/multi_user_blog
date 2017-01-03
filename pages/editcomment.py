@@ -15,11 +15,9 @@ class EditComment(BlogHandler):
                 self.render("editcomment.html", comment=edited_comment.comment)
             else:
                 self.redirect("/blog/" + post_id +
-                              "?error=You don't have access to edit this " +
-                              "comment.")
+                              "?error=Editing other's comment is prohibited.")
         else:
-            self.redirect("/login?error=You need to be logged, in order to" +
-                          " edit your post!!")
+            self.redirect("/login?error=Login is required.")
 
     def post(self, post_id, comment_id):
         """This method process comment edition information"""
