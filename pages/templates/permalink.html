@@ -37,18 +37,6 @@
       </div>
   </form>
   <!-- Showing comments -->
-  {% if new %}
-    <div class="row">
-      <div class="col-md-8">
-        {{ new.username }} said at {{new.created.strftime("%T, %b %d, %Y")}}
-        <blockquote> {{ new.comment }} </blockquote>
-      </div>
-      <div class="col-md-4">
-        <a class="" href="/blog/{{post.key().id()}}/{{new.key().id()}}/delete">Delete</a>
-        <a class="" href="/blog/{{post.key().id()}}/{{new.key().id()}}/edit">Edit</a>
-      </div>
-    </div>
-    {% endif%}
   {% if comments %}
   {% for c in comments %}
     <div class="row">
