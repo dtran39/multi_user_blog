@@ -34,25 +34,31 @@ class PostPage(BlogHandler):
             return
         new_comment = ""
         if self.user:
-            if(self.request.get('like') and
-               self.request.get('like') == "update"):
-                likes = db.GqlQuery("select * from Like where post_id = " +
-                                    post_id + " and user_id = " +
-                                    str(self.user.key().id()))
-
-                if self.user.key().id() == post.user_id:
-                    self.redirect("/blog/" + post_id +
-                                  "?error=Liking your own post is prohibited")
-                    return
-                elif likes.count() == 0:
-                    new_like = Like(parent=blog_key(), user_id=self.user.key().id(),
-                                    post_id=int(post_id))
-                    new_like.put()
+            # If user comment on the post, update db
             if self.request.get('comment'):
                 new_comment = Comment(parent=blog_key(), user_id=self.user.key().id(),
                                       username=self.user.name, post_id=int(post_id),
                                       comment=self.request.get('comment'))
                 new_comment.put()
+            # If user like the post, check and update db if needed
+            if(self.request.get('like') and self.request.get('like') == "update"):
+                # Prevent liking your own post
+                if self.user.key().id() == post.user_id:
+                    self.redirect("/blog/" + post_id +
+                                  "?error=Liking your own post is prohibited")
+                    return
+                likes = db.GqlQuery("select * from Like where post_id = " +
+                                    post_id + " and user_id = " +
+                                    str(self.user.key().id()))
+                # If haven't like yet, like
+                if likes.count() == 0:
+                    new_like = Like(parent=blog_key(), user_id=self.user.key().id(),
+                                    post_id=int(post_id))
+                    new_like.put()
+                # If already like, unlike
+                elif likes.count() == 1:
+                    for a_like in likes:
+                        a_like.delete()
         else:
             self.redirect("/login?error=Login required to like or comment")
             return
