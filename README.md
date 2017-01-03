@@ -1,5 +1,5 @@
 # udacity_fullstack_nanodegree_p3_multi_user_blog
-# URL: https://duc-tran-blog.appspot.com/
+# URL: https://dt-blog.appspot.com
 ### How to run:
 1. Install Python
 2. Download google cloud sdk, extract to a folder
