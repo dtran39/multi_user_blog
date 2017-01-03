@@ -22,7 +22,7 @@ class NewPost(BlogHandler):
 
         if subject and content:
             new_post = Post(parent=blog_key(), user_id=self.user.key().id(),
-                            subject=subject, content=content)
+                            username=self.user.name, subject=subject, content=content)
             new_post.put()
             self.redirect('/blog/%s' % str(new_post.key().id()))
         else:

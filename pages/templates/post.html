@@ -4,7 +4,7 @@
       <a href="/blog/{{p.key().id()}}#">
         {{p.subject}}</a>
     <!-- Post Info-->
-      <div>Created by {{p.getUserName()}} on {{p.created.strftime("%b %d, %Y")}}
+      <div>Created by {{p.username}} at {{p.created.strftime("%T, %b %d, %Y")}}
     </div>
   </div>
   <div>
