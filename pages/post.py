@@ -54,7 +54,7 @@ class PostPage(BlogHandler):
                     new_like.put()
             if self.request.get('comment'):
                 new_comment = Comment(parent=blog_key(), user_id=self.user.key().id(),
-                                      post_id=int(post_id),
+                                      username=self.user.name, post_id=int(post_id),
                                       comment=self.request.get('comment'))
                 new_comment.put()
         else:
