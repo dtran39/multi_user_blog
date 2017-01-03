@@ -37,18 +37,7 @@
       </div>
   </form>
   <!-- Showing comments -->
-  {% if new %}
-  <div class="row">
-    <div class="col-md-8">
-      {{ new.getUserName() }} said  in {{new.created.strftime("%T, %b %d, %Y")}}
-      <blockquote> {{ new.comment }} </blockquote>
-    </div>
-    <div class="col-md-4">
-      <a class="" href="/blog/deletecomment/{{post.key().id()}}/{{new.key().id()}}">Delete</a>
-      <a class="" href="/blog/editcomment/{{post.key().id()}}/{{new.key().id()}}">Edit</a>
-    </div>
-  </div>
-  {% endif%}
+  {% if comments %}
   {% for c in comments %}
     <div class="row">
     <div class="col-md-8">
@@ -57,9 +46,10 @@
     </div>
     <div class="col-md-4">
       <a class="" href="/blog/deletecomment/{{post.key().id()}}/{{c.key().id()}}">Delete</a>
-      <a class="x" href="/blog/editcomment/{{post.key().id()}}/{{c.key().id()}}">Edit</a>
+      <a class="" href="/blog/editcomment/{{post.key().id()}}/{{c.key().id()}}">Edit</a>
     </div>
   </div>
   {% endfor %}
+  {% endif %}
 </div>
 {% endblock %}
