@@ -1,4 +1,4 @@
-# Loading all pages rendering modules
+"""Loading all pages rendering modules for others to use"""
 from pages.base_render import BlogHandler
 from pages.signup import Register
 from pages.login import Login

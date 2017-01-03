@@ -12,5 +12,5 @@ app = webapp2.WSGIApplication([
     ('/blog/editcomment/([0-9]+)/([0-9]+)', EditComment),
     ('/signup', Register),
     ('/login', Login),
-    ('/logout', Logout)    
+    ('/logout', Logout)
     ], debug=True)
