@@ -28,7 +28,6 @@ class User(db.Model):
     """This class represent an user"""
     name = db.StringProperty(required=True)
     pw_hash = db.StringProperty(required=True)
-    email = db.StringProperty()
 
     @classmethod
     def by_id(cls, uid):

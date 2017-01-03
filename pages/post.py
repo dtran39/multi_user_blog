@@ -17,21 +17,18 @@ class PostPage(BlogHandler):
         """This method render the a post, its like and comments"""
         key = db.Key.from_path('Post', int(post_id), parent=blog_key())
         post = db.get(key)
-
-        likes = db.GqlQuery("select * from Like where post_id="+post_id)
-        comments = db.GqlQuery("select * from Comment where post_id = " +
-                               post_id + " order by created desc")
         if not post:
             self.error(404)
             return
-        error = self.request.get('error')
+        likes = db.GqlQuery("select * from Like where post_id="+post_id)
+        comments = db.GqlQuery("select * from Comment where post_id = " +
+                               post_id + " order by created desc")
         self.render("permalink.html", post=post, numOfLikes=likes.count(),
-                    comments=comments, error=error)
+                    comments=comments, error=self.request.get('error'))
     def post(self, post_id):
         """This method process adding/editing comments and adding like"""
         key = db.Key.from_path('Post', int(post_id), parent=blog_key())
         post = db.get(key)
-
         if not post:
             self.error(404)
             return
@@ -45,8 +42,7 @@ class PostPage(BlogHandler):
 
                 if self.user.key().id() == post.user_id:
                     self.redirect("/blog/" + post_id +
-                                  "?error=You cannot like your " +
-                                  "post.!!")
+                                  "?error=Liking your own post is prohibited")
                     return
                 elif likes.count() == 0:
                     new_like = Like(parent=blog_key(), user_id=self.user.key().id(),
@@ -58,8 +54,7 @@ class PostPage(BlogHandler):
                                       comment=self.request.get('comment'))
                 new_comment.put()
         else:
-            self.redirect("/login?error=You need to login before " +
-                          "performing edit, like or commenting.!!")
+            self.redirect("/login?error=Login required to like or comment")
             return
         likes = db.GqlQuery("select * from Like where post_id="+post_id)
         comments = db.GqlQuery("select * from Comment where post_id = " +
