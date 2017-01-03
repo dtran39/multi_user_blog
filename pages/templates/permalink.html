@@ -12,8 +12,8 @@
   </div>
   <div class="col-md-4">
   <!-- Edit, delete -->
-    <a id="post-delete"  href="/blog/delete/{{post.key().id()}}">Delete</a>
-    <a id="post-edit"  href="/blog/edit/{{post.key().id()}}">Edit</a>
+    <a id="post-delete"  href="/blog/{{post.key().id()}}/delete">Delete</a>
+    <a id="post-edit"    href="/blog/{{post.key().id()}}/edit">Edit</a>
   <!-- Render post -->
   </div>
 </div>
@@ -44,11 +44,11 @@
         <blockquote> {{ new.comment }} </blockquote>
       </div>
       <div class="col-md-4">
-        <a class="" href="/blog/deletecomment/{{post.key().id()}}/{{new.key().id()}}">Delete</a>
-        <a class="" href="/blog/editcomment/{{post.key().id()}}/{{new.key().id()}}">Edit</a>
+        <a class="" href="/blog/{{post.key().id()}}/{{new.key().id()}}/delete">Delete</a>
+        <a class="" href="/blog/{{post.key().id()}}/{{new.key().id()}}/edit">Edit</a>
       </div>
     </div>
-    {% endif%}  
+    {% endif%}
   {% if comments %}
   {% for c in comments %}
     <div class="row">
@@ -57,8 +57,8 @@
           <blockquote> {{ c.comment }} </blockquote>
     </div>
     <div class="col-md-4">
-      <a class="" href="/blog/deletecomment/{{post.key().id()}}/{{c.key().id()}}">Delete</a>
-      <a class="" href="/blog/editcomment/{{post.key().id()}}/{{c.key().id()}}">Edit</a>
+      <a class="" href="/blog/{{post.key().id()}}/{{c.key().id()}}/delete">Delete</a>
+      <a class="" href="/blog/{{post.key().id()}}/{{c.key().id()}}/edit">Edit</a>
     </div>
   </div>
   {% endfor %}
