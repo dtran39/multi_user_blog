@@ -10,6 +10,10 @@ class DeleteComment(BlogHandler):
             key = db.Key.from_path('Comment', int(comment_id),
                                    parent=blog_key())
             comment_to_be_deleted = db.get(key)
+            # Check if comment exist
+            if not comment_to_be_deleted:
+                return
+            # Check if user owns that comment
             if comment_to_be_deleted.user_id == self.user.key().id():
                 comment_to_be_deleted.delete()
                 self.redirect("/blog/"+post_id+"?deleted_comment_id=" +

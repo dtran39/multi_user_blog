@@ -10,9 +10,13 @@ class EditComment(BlogHandler):
         if self.user:
             key = db.Key.from_path('Comment', int(comment_id),
                                    parent=blog_key())
-            edited_comment = db.get(key)
-            if edited_comment.user_id == self.user.key().id():
-                self.render("editcomment.html", comment=edited_comment.comment)
+            comment_to_be_edited = db.get(key)
+            # Checking comment exist
+            if not comment_to_be_edited:
+                return
+            # Checking user owns the comment
+            if comment_to_be_edited.user_id == self.user.key().id():
+                self.render("editcomment.html", comment=comment_to_be_edited.comment)
             else:
                 self.redirect("/blog/" + post_id +
                               "?error=Editing other's comment is prohibited.")
@@ -30,9 +34,17 @@ class EditComment(BlogHandler):
             key = db.Key.from_path('Comment',
                                    int(comment_id), parent=blog_key())
             edited_comment = db.get(key)
-            edited_comment.comment = comment
-            edited_comment.put()
-            self.redirect('/blog/%s' % post_id)
+            # Checking comment exist
+            if not edited_comment:
+                return
+            # Checking that user owns that edited comment
+            if edited_comment.user_id == self.user.key().id():
+                edited_comment.comment = comment
+                edited_comment.put()
+                self.redirect('/blog/' + post_id)
+            else:
+                self.redirect("/blog/" + post_id +
+                              "?error=Editing other's comment is prohibited.")
         else:
             error = "comment needed"
             self.render("editcomment.html", comment=comment, error=error)

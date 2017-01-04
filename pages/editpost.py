@@ -9,10 +9,13 @@ class EditPost(BlogHandler):
         """This method implements editing a blogpost page"""
         if self.user:
             key = db.Key.from_path('Post', int(post_id), parent=blog_key())
-            post = db.get(key)
-            if post.user_id == self.user.key().id():
-                self.render("editpost.html", subject=post.subject,
-                            content=post.content, post_id=post_id)
+            post_to_be_edited = db.get(key)
+            # Check if post existed
+            if not post_to_be_edited:
+                return
+            if post_to_be_edited.user_id == self.user.key().id():
+                self.render("editpost.html", subject=post_to_be_edited.subject,
+                            content=post_to_be_edited.content, post_id=post_id)
             else:
                 self.redirect("/blog/" + post_id + "?error=Editing other's post is prohibited.")
         else:
@@ -26,11 +29,18 @@ class EditPost(BlogHandler):
         content = self.request.get('content')
         if subject and content:
             key = db.Key.from_path('Post', int(post_id), parent=blog_key())
-            post = db.get(key)
-            post.subject = subject
-            post.content = content
-            post.put()
-            self.redirect('/blog/%s' % post_id)
+            edited_post = db.get(key)
+            # Check if edited post exist
+            if not edited_post:
+                return
+            # Check if user owns that edited post
+            if edited_post.user_id == self.user.key().id():
+                edited_post.subject = subject
+                edited_post.content = content
+                edited_post.put()
+                self.redirect('/blog/' + post_id)
+            else:
+                self.redirect("/blog/" + post_id + "?error=Editing other's post is prohibited.")
         else:
             error = "subject and content, please!"
             self.render("editpost.html", subject=subject,

@@ -8,9 +8,13 @@ class DeletePost(BlogHandler):
         """This method implement deleting a blogpost"""
         if self.user:
             key = db.Key.from_path('Post', int(post_id), parent=blog_key())
-            post = db.get(key)
-            if post.user_id == self.user.key().id():
-                post.delete()
+            post_to_be_deleted = db.get(key)
+            # Check that post exist
+            if not post_to_be_deleted:
+                return
+            # Check that current user owns the post
+            if post_to_be_deleted.user_id == self.user.key().id():
+                post_to_be_deleted.delete()
                 # Remember to delete comments and likes
                 likes = db.GqlQuery("select * from Like where post_id="+post_id)
                 for a_like in likes:
