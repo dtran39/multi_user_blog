@@ -33,14 +33,14 @@ class EditComment(BlogHandler):
         if comment:
             key = db.Key.from_path('Comment',
                                    int(comment_id), parent=blog_key())
-            edited_comment = db.get(key)
+            comment_to_be_edited = db.get(key)
             # Checking comment exist
-            if not edited_comment:
+            if not comment_to_be_edited:
                 return
             # Checking that user owns that edited comment
-            if edited_comment.user.key().id() == self.user.key().id():
-                edited_comment.comment = comment
-                edited_comment.put()
+            if comment_to_be_edited.user.key().id() == self.user.key().id():
+                comment_to_be_edited.comment = comment
+                comment_to_be_edited.put()
                 self.redirect('/blog/' + post_id)
             else:
                 self.redirect("/blog/" + post_id +

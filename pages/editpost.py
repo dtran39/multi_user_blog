@@ -29,15 +29,15 @@ class EditPost(BlogHandler):
         content = self.request.get('content')
         if subject and content:
             key = db.Key.from_path('Post', int(post_id), parent=blog_key())
-            edited_post = db.get(key)
+            post_to_be_edited = db.get(key)
             # Check if edited post exist
-            if not edited_post:
+            if not post_to_be_edited:
                 return
             # Check if user owns that edited post
-            if edited_post.user.key().id() == self.user.key().id():
-                edited_post.subject = subject
-                edited_post.content = content
-                edited_post.put()
+            if post_to_be_edited.user.key().id() == self.user.key().id():
+                post_to_be_edited.subject = subject
+                post_to_be_edited.content = content
+                post_to_be_edited.put()
                 self.redirect('/blog/' + post_id)
             else:
                 self.redirect("/blog/" + post_id + "?error=Editing other's post is prohibited.")
