@@ -14,14 +14,12 @@ class DeletePost(BlogHandler):
                 return
             # Check that current user owns the post
             if post_to_be_deleted.user_id == self.user.key().id():
-                post_to_be_deleted.delete()
                 # Remember to delete comments and likes
-                likes = db.GqlQuery("select * from Like where post_id="+post_id)
-                for a_like in likes:
+                for a_like in post_to_be_deleted.likes:
                     a_like.delete()
-                comments = db.GqlQuery("select * from Comment where post_id=" + post_id)
-                for a_comment in comments:
+                for a_comment in post_to_be_deleted.comments:
                     a_comment.delete()
+                post_to_be_deleted.delete()
                 self.redirect("/?deleted_post_id="+post_id)
             else:
                 self.redirect("/blog/" + post_id + "?error=Deleting other's post is prohibited.")

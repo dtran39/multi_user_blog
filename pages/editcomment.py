@@ -15,7 +15,7 @@ class EditComment(BlogHandler):
             if not comment_to_be_edited:
                 return
             # Checking user owns the comment
-            if comment_to_be_edited.user_id == self.user.key().id():
+            if comment_to_be_edited.user.key().id() == self.user.key().id():
                 self.render("editcomment.html", comment=comment_to_be_edited.comment)
             else:
                 self.redirect("/blog/" + post_id +
@@ -38,7 +38,7 @@ class EditComment(BlogHandler):
             if not edited_comment:
                 return
             # Checking that user owns that edited comment
-            if edited_comment.user_id == self.user.key().id():
+            if edited_comment.user.key().id() == self.user.key().id():
                 edited_comment.comment = comment
                 edited_comment.put()
                 self.redirect('/blog/' + post_id)

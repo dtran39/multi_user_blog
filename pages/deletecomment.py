@@ -14,7 +14,7 @@ class DeleteComment(BlogHandler):
             if not comment_to_be_deleted:
                 return
             # Check if user owns that comment
-            if comment_to_be_deleted.user_id == self.user.key().id():
+            if comment_to_be_deleted.user.key().id() == self.user.key().id():
                 comment_to_be_deleted.delete()
                 self.redirect("/blog/"+post_id+"?deleted_comment_id=" +
                               comment_id)

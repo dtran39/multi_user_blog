@@ -20,9 +20,8 @@ class PostPage(BlogHandler):
         if not post:
             self.error(404)
             return
-        likes = db.GqlQuery("select * from Like where post_id="+post_id)
-        comments = db.GqlQuery("select * from Comment where post_id = " +
-                               post_id + " order by created desc")
+        likes = post.likes
+        comments = post.comments.order("-created")
         self.render("permalink.html", post=post, numOfLikes=likes.count(),
                     comments=comments, error=self.request.get('error'))
     def post(self, post_id):
@@ -36,8 +35,8 @@ class PostPage(BlogHandler):
         if self.user:
             # If user comment on the post, update db
             if self.request.get('comment'):
-                new_comment = Comment(parent=blog_key(), user_id=self.user.key().id(),
-                                      username=self.user.name, post_id=int(post_id),
+                new_comment = Comment(parent=blog_key(), user=self.user,
+                                      post=post,
                                       comment=self.request.get('comment'))
                 new_comment.put()
             # If user like the post, check and update db if needed
@@ -47,13 +46,11 @@ class PostPage(BlogHandler):
                     self.redirect("/blog/" + post_id +
                                   "?error=Liking your own post is prohibited")
                     return
-                likes = db.GqlQuery("select * from Like where post_id = " +
-                                    post_id + " and user_id = " +
-                                    str(self.user.key().id()))
+                likes = post.likes.filter('user =', self.user)
                 # If haven't like yet, like
                 if likes.count() == 0:
-                    new_like = Like(parent=blog_key(), user_id=self.user.key().id(),
-                                    post_id=int(post_id))
+                    new_like = Like(parent=blog_key(), user=self.user,
+                                    post=post)
                     new_like.put()
                 # If already like, unlike
                 elif likes.count() == 1:
@@ -62,9 +59,7 @@ class PostPage(BlogHandler):
         else:
             self.redirect("/login?error=Login required to like or comment")
             return
-        likes = db.GqlQuery("select * from Like where post_id="+post_id)
-        comments = db.GqlQuery("select * from Comment where post_id = " +
-                               post_id + "order by created desc")
-
+        likes = post.likes
+        comments = post.comments.order("-created")
         self.render("permalink.html", post=post, numOfLikes=likes.count(),
                     comments=comments, new=new_comment)
