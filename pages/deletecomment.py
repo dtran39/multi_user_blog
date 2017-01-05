@@ -2,6 +2,8 @@
 from pages.base_render import BlogHandler
 from pages.global_helpers import blog_key
 from google.appengine.ext import db
+
+
 class DeleteComment(BlogHandler):
     """This class implement deleting a comment"""
     def get(self, post_id, comment_id):
@@ -19,6 +21,7 @@ class DeleteComment(BlogHandler):
                 self.redirect("/blog/"+post_id+"?deleted_comment_id=" +
                               comment_id)
             else:
-                self.redirect("/blog/" + post_id + "?error=Deleting other's comment is prohibited.")
+                self.redirect("/blog/" + post_id +
+                              "?error=Deleting other's comment is prohibited.")
         else:
             self.redirect("/login?error=Login is required.")

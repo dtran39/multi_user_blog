@@ -1,8 +1,11 @@
 """This module has BlogHandler class"""
 import webapp2
-from pages.global_helpers import jinja_render_str, make_secure_val, check_secure_val
+from pages.global_helpers import (jinja_render_str, make_secure_val,
+                                  check_secure_val)
 from all_models import User
 # Base blog handler
+
+
 class BlogHandler(webapp2.RequestHandler):
     """This class use jinja to render pages"""
     def render_str(self, template, **params):

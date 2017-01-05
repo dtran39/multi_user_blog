@@ -3,10 +3,12 @@ import hashlib
 import random
 from string import letters
 from google.appengine.ext import db
-#
+
+
 def make_salt(length=5):
     """This function create salt"""
     return ''.join(random.choice(letters) for x in xrange(length))
+
 
 def make_pw_hash(name, password, salt=None):
     """This function create hash"""
@@ -15,14 +17,17 @@ def make_pw_hash(name, password, salt=None):
     hashed = hashlib.sha256(name + password + salt).hexdigest()
     return '%s,%s' % (salt, hashed)
 
+
 def valid_pw(name, password, hashed):
     """This function check two hashes to see if it matches"""
     salt = hashed.split(',')[0]
     return hashed == make_pw_hash(name, password, salt)
 
+
 def users_key(group='default'):
     """This function get user key"""
     return db.Key.from_path('users', group)
+
 
 class User(db.Model):
     """This class represent an user"""

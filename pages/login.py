@@ -2,6 +2,7 @@
 from all_models import User
 from pages.base_render import BlogHandler
 
+
 class Login(BlogHandler):
     """This class implements login functionality of the web app"""
     def get(self):

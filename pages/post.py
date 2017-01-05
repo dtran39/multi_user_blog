@@ -1,8 +1,10 @@
-"""This module has Post(just the post itself) and PostPage (with comments and likes)"""
+"""This module has Post(just the post itself)
+   and PostPage (with comments and likes)"""
 from google.appengine.ext import db
 from all_models import PostModel, Comment, Like
 from pages.global_helpers import jinja_render_str, blog_key
 from pages.base_render import BlogHandler
+
 
 class Post(PostModel):
     """This class render a single post and its meta information"""
@@ -11,8 +13,10 @@ class Post(PostModel):
         self._render_text = self.content.replace('\n', '<br>')
         return jinja_render_str("post.html", p=self)
 
+
 class PostPage(BlogHandler):
-    """This class render a single post, its meta info and its likes and comments"""
+    """This class render a single post,
+        its meta info and its likes and comments"""
     def get(self, post_id):
         """This method render the a post, its like and comments"""
         key = db.Key.from_path('Post', int(post_id), parent=blog_key())
@@ -24,6 +28,7 @@ class PostPage(BlogHandler):
         comments = post.comments.order("-created")
         self.render("permalink.html", post=post, numOfLikes=likes.count(),
                     comments=comments, error=self.request.get('error'))
+
     def post(self, post_id):
         """This method process adding/editing comments and adding like"""
         key = db.Key.from_path('Post', int(post_id), parent=blog_key())
@@ -40,7 +45,8 @@ class PostPage(BlogHandler):
                                       comment=self.request.get('comment'))
                 new_comment.put()
             # If user like the post, check and update db if needed
-            if(self.request.get('like') and self.request.get('like') == "update"):
+            if ((self.request.get('like')
+                and self.request.get('like') == "update")):
                 # Prevent liking your own post
                 if self.user.key().id() == post.user.key().id():
                     self.redirect("/blog/" + post_id +

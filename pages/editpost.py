@@ -3,6 +3,7 @@ from google.appengine.ext import db
 from pages.base_render import BlogHandler
 from pages.global_helpers import blog_key
 
+
 class EditPost(BlogHandler):
     """This class implements editing a blogpost"""
     def get(self, post_id):
@@ -17,14 +18,15 @@ class EditPost(BlogHandler):
                 self.render("editpost.html", subject=post_to_be_edited.subject,
                             content=post_to_be_edited.content, post_id=post_id)
             else:
-                self.redirect("/blog/" + post_id + "?error=Editing other's post is prohibited.")
+                self.redirect("/blog/" + post_id +
+                              "?error=Editing other's post is prohibited.")
         else:
             self.redirect("/login?error=Login is required.")
 
     def post(self, post_id):
         """This method process editing information"""
         if not self.user:
-            self.redirect('/')
+            return self.redirect('/login')
         subject = self.request.get('subject')
         content = self.request.get('content')
         if subject and content:
@@ -40,7 +42,8 @@ class EditPost(BlogHandler):
                 post_to_be_edited.put()
                 self.redirect('/blog/' + post_id)
             else:
-                self.redirect("/blog/" + post_id + "?error=Editing other's post is prohibited.")
+                self.redirect("/blog/" + post_id +
+                              "?error=Editing other's post is prohibited.")
         else:
             error = "subject and content, please!"
             self.render("editpost.html", subject=subject,

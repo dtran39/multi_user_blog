@@ -1,7 +1,8 @@
 """This module is the entry point of Google App Engine application"""
 import webapp2
-from all_pages import (Register, Login, Logout, BlogFront, PostPage,
-                       NewPost, DeletePost, EditPost, DeleteComment, EditComment)
+from all_pages import (Register, Login, Logout, BlogFront,
+                       PostPage, NewPost, DeletePost, EditPost,
+                       DeleteComment, EditComment)
 app = webapp2.WSGIApplication([
     ('/signup', Register),
     ('/login', Login),

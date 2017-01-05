@@ -2,6 +2,7 @@
 from pages.base_render import BlogHandler
 from pages.post import Post
 
+
 class BlogFront(BlogHandler):
     """This class render the blog feed page of the app"""
     def get(self):

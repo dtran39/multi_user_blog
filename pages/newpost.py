@@ -3,6 +3,7 @@ from pages.global_helpers import blog_key
 from pages.base_render import BlogHandler
 from pages.post import Post
 
+
 class NewPost(BlogHandler):
     """This class implements adding a new post"""
     def get(self):
@@ -15,7 +16,7 @@ class NewPost(BlogHandler):
     def post(self):
         """This method process new post information"""
         if not self.user:
-            self.redirect('/')
+            return self.redirect('/login')
 
         subject = self.request.get('subject')
         content = self.request.get('content')
@@ -27,4 +28,5 @@ class NewPost(BlogHandler):
             self.redirect('/blog/%s' % str(new_post.key().id()))
         else:
             error = "subject and content, please!"
-            self.render("newpost.html", subject=subject, content=content, error=error)
+            self.render("newpost.html", subject=subject,
+                        content=content, error=error)

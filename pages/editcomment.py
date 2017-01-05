@@ -3,6 +3,7 @@ from pages.base_render import BlogHandler
 from pages.global_helpers import blog_key
 from google.appengine.ext import db
 
+
 class EditComment(BlogHandler):
     """This class implement editing a comment"""
     def get(self, post_id, comment_id):
@@ -16,7 +17,8 @@ class EditComment(BlogHandler):
                 return
             # Checking user owns the comment
             if comment_to_be_edited.user.key().id() == self.user.key().id():
-                self.render("editcomment.html", comment=comment_to_be_edited.comment)
+                self.render("editcomment.html",
+                            comment=comment_to_be_edited.comment)
             else:
                 self.redirect("/blog/" + post_id +
                               "?error=Editing other's comment is prohibited.")

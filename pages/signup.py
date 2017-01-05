@@ -1,22 +1,27 @@
-"""This module has class Signup, and some regex functions to check info validity"""
+"""This module has class Signup,
+    and some regex functions to check info validity"""
 import re
 from all_models import User
 from pages.base_render import BlogHandler
+
 
 def valid_username(username):
     """Check username validity"""
     valid_username_regex = re.compile(r"^[a-zA-Z0-9_-]{3,20}$")
     return username and valid_username_regex.match(username)
 
+
 def valid_password(password):
     """Check password validity"""
     valid_password_regex = re.compile(r"^.{3,20}$")
     return password and valid_password_regex.match(password)
 
+
 def valid_email(email):
     """Check email validity"""
     valid_email_regex = re.compile(r'^[\S]+@[\S]+\.[\S]+$')
     return not email or valid_email_regex.match(email)
+
 
 class Signup(BlogHandler):
     """This class implements signup functionality of the web app"""
@@ -57,6 +62,7 @@ class Signup(BlogHandler):
     def done(self, *a, **kw):
         """This class implements what happens afterward"""
         raise NotImplementedError
+
 
 class Register(Signup):
     """This class implement registration functionality"""

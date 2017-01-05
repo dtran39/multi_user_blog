@@ -2,6 +2,8 @@
 from google.appengine.ext import db
 from pages.global_helpers import blog_key
 from pages.base_render import BlogHandler
+
+
 class DeletePost(BlogHandler):
     """This class implemetn deleting a blogpost"""
     def get(self, post_id):
@@ -22,6 +24,7 @@ class DeletePost(BlogHandler):
                 post_to_be_deleted.delete()
                 self.redirect("/?deleted_post_id="+post_id)
             else:
-                self.redirect("/blog/" + post_id + "?error=Deleting other's post is prohibited.")
+                self.redirect("/blog/" + post_id +
+                              "?error=Deleting other's post is prohibited.")
         else:
             self.redirect("/login?error=Login is required.")
