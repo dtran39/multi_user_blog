@@ -13,7 +13,7 @@ class DeletePost(BlogHandler):
             if not post_to_be_deleted:
                 return
             # Check that current user owns the post
-            if post_to_be_deleted.user_id == self.user.key().id():
+            if post_to_be_deleted.user.key().id() == self.user.key().id():
                 # Remember to delete comments and likes
                 for a_like in post_to_be_deleted.likes:
                     a_like.delete()

@@ -5,8 +5,7 @@ from models.user import User
 class PostModel(db.Model):
     """This class is the model of a post"""
     # Data redundancy to avoid table joining
-    user_id = db.IntegerProperty(required=True)
-    username = db.StringProperty(required=True)
+    user = db.ReferenceProperty(User, collection_name='posts', required=True)    
     subject = db.StringProperty(required=True)
     content = db.TextProperty(required=True)
     created = db.DateTimeProperty(auto_now_add=True)

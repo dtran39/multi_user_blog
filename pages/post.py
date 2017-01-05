@@ -42,7 +42,7 @@ class PostPage(BlogHandler):
             # If user like the post, check and update db if needed
             if(self.request.get('like') and self.request.get('like') == "update"):
                 # Prevent liking your own post
-                if self.user.key().id() == post.user_id:
+                if self.user.key().id() == post.user.key().id():
                     self.redirect("/blog/" + post_id +
                                   "?error=Liking your own post is prohibited")
                     return

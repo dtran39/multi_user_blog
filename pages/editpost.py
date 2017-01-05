@@ -13,7 +13,7 @@ class EditPost(BlogHandler):
             # Check if post existed
             if not post_to_be_edited:
                 return
-            if post_to_be_edited.user_id == self.user.key().id():
+            if post_to_be_edited.user.key().id() == self.user.key().id():
                 self.render("editpost.html", subject=post_to_be_edited.subject,
                             content=post_to_be_edited.content, post_id=post_id)
             else:
@@ -34,7 +34,7 @@ class EditPost(BlogHandler):
             if not edited_post:
                 return
             # Check if user owns that edited post
-            if edited_post.user_id == self.user.key().id():
+            if edited_post.user.key().id() == self.user.key().id():
                 edited_post.subject = subject
                 edited_post.content = content
                 edited_post.put()
